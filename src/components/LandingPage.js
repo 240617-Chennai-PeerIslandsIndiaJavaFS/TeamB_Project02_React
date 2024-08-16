@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import logo1 from "../media/akshay_logo-removebg.png"
+import logo1 from "../media/synergizelogo.png";
 import "../css/LandingPage.css";
 
 const LandingPage = () => {
@@ -24,7 +24,7 @@ const LandingPage = () => {
           </h1>
           <br />
           <br />
-          <Link to="#">
+          <Link to="/login">
             <button
               type="button"
               className="btn btn-primary btn-lg custom-button btn-getstarted"
