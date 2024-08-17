@@ -10,6 +10,7 @@ import ProjectPage from "./components/ProjectPage";
 import ProjectMenu from "./components/ProjectMenu";
 import ProjectClientDetails from "./components/ProjectClientDetails";
 import AddTeamMember from "./components/AddTeamMember";
+import RemoveTeamMember from "./components/RemoveTeamMember";
 
 function App() {
   return (
@@ -19,7 +20,6 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/password-reset" element={<PasswordReset />} />
         <Route path="/admin" element={<AdminPage />}>
-          
           <Route path="dashboard" element={<Dashboard />} />
         </Route>
         <Route path="/project-manager-projects" element={<ProjectPage />} />
@@ -34,6 +34,10 @@ function App() {
           <Route
             path="add-team-member-to-project/:projectId"
             element={<AddTeamMember />}
+          />
+          <Route
+            path="remove-team-member-from-project/:projectId"
+            element={<RemoveTeamMember />}
           />
         </Route>
       </Routes>
