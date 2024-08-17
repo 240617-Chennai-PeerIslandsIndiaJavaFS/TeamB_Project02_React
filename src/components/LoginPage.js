@@ -38,7 +38,7 @@ const LoginPage = () => {
         } else if (user.userRole === "TEAM_MEMBER") {
           navigate("/team-member", { state: { user } });
         } else if (user.userRole === "PROJECT_MANAGER") {
-          navigate("/project-manager-menu");
+          navigate("/project-manager-projects", { state: { user } });
         }
       } else {
         setMessage("Invalid email or password.");
