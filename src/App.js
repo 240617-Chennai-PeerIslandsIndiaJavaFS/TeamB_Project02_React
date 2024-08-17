@@ -7,6 +7,7 @@ import PasswordReset from "./components/PasswordReset";
 import AdminPage from "./components/AdminPage";
 import ProjectPage from "./components/ProjectPage";
 import ProjectMenu from "./components/ProjectMenu";
+import ProjectClientDetails from "./components/ProjectClientDetails";
 
 function App() {
   return (
@@ -20,7 +21,12 @@ function App() {
         <Route
           path="/project-details-menu/:projectId"
           element={<ProjectMenu />}
-        ></Route>
+        >
+          <Route
+            path="viewprojectclientdetails/:projectId"
+            element={<ProjectClientDetails />}
+          />
+        </Route>
       </Routes>
     </Router>
   );

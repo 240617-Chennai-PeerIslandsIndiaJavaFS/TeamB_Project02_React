@@ -70,8 +70,8 @@
 }
 
 .loginbutton {
-  background-color: #748d92;
-  color: white;
+  background-color: #748d92 !important;
+  color: white !important;
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -82,7 +82,7 @@
   margin-bottom: 10px;
 }
 .reset {
-  background-color: #212a31;
+  background-color: #212a31 !important;
 }
 
 .loginbutton:hover,

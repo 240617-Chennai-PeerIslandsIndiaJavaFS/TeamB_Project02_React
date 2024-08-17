@@ -15,7 +15,7 @@ const ProjectMenu = () => {
             className="project-link"
             to={`viewprojectclientdetails/${projectId}`}
           >
-            View Project Client Details
+            View Client Details
           </Link>
           <Link
             className="project-link"
