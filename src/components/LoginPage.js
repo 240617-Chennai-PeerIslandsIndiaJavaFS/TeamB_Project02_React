@@ -23,7 +23,8 @@ const LoginPage = () => {
           email
         )}&password=${encodeURIComponent(password)}`,
         {
-          method: "GET", 
+          method: "GET",
+
           headers: {
             "Content-Type": "application/json",
           },
@@ -82,7 +83,7 @@ const LoginPage = () => {
               id="exampleInputPassword1"
             />
           </div>
-          <div className="button-container">
+          <div className="button-container-login">
             <button
               type="submit"
               className="btn loginbutton"

@@ -32,7 +32,7 @@
   border-radius: 15px;
   box-shadow: 0 8px 30px #124e66;
   margin: 0 20px;
-  max-width: 90%;
+  max-width: 95%;
 }
 
 .login-title {
@@ -62,7 +62,7 @@
   border: 2px solid #212a31;
   outline: none;
 }
-.button-container {
+.button-container-login {
   display: flex;
   justify-content: space-between;
   margin-top: 30px;
@@ -112,7 +112,7 @@
     font-size: 30px;
   }
 
-  .button-container {
+  .button-container-login {
     flex-direction: row;
   }
 
