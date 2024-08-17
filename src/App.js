@@ -8,6 +8,7 @@ import AdminPage from "./components/AdminPage";
 import ProjectPage from "./components/ProjectPage";
 import ProjectMenu from "./components/ProjectMenu";
 import ProjectClientDetails from "./components/ProjectClientDetails";
+import AddTeamMember from "./components/AddTeamMember";
 
 function App() {
   return (
@@ -25,6 +26,10 @@ function App() {
           <Route
             path="viewprojectclientdetails/:projectId"
             element={<ProjectClientDetails />}
+          />
+          <Route
+            path="add-team-member-to-project/:projectId"
+            element={<AddTeamMember />}
           />
         </Route>
       </Routes>
