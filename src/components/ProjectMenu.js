@@ -9,23 +9,41 @@ const ProjectMenu = () => {
     <div className="project-page-container">
       <div className="project-page">
         <div className="project-sidebar">
-          <h1>Project Actions</h1>
-          <p style={{ color: "#f9f9f9" }}>Choose an action:</p>
-          <Link to={`viewprojectclientdetails/${projectId}`}>
+          <h1 className="project-head">Project Actions</h1>
+          <p className="project-para">Choose an action:</p>
+          <Link
+            className="project-link"
+            to={`viewprojectclientdetails/${projectId}`}
+          >
             View Project Client Details
           </Link>
-          <Link to={`add-team-member-to-project/${projectId}`}>
+          <Link
+            className="project-link"
+            to={`add-team-member-to-project/${projectId}`}
+          >
             Add Team Member To Project
           </Link>
-          <Link to={`remove-team-member-from-project/${projectId}`}>
+          <Link
+            className="project-link"
+            to={`remove-team-member-from-project/${projectId}`}
+          >
             Remove Team Member From Project
           </Link>
-          <Link to={`assign-task-to-team-member/${projectId}`}>
+          <Link
+            className="project-link"
+            to={`assign-task-to-team-member/${projectId}`}
+          >
             Assign Task to Team Member
           </Link>
-          <Link to={`update-task/${projectId}`}>Update Task</Link>
-          <Link to={`delete-task/${projectId}`}>Delete Task</Link>
-          <Link to={`view-task-details/${projectId}`}>View Task Details</Link>
+          <Link className="project-link" to={`update-task/${projectId}`}>
+            Update Task
+          </Link>
+          <Link className="project-link" to={`delete-task/${projectId}`}>
+            Delete Task
+          </Link>
+          <Link className="project-link" to={`view-task-details/${projectId}`}>
+            View Task Details
+          </Link>
           <Link className="btn-primary11" to="/project-manager-projects">
             Go Back
           </Link>
