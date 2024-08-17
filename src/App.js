@@ -5,6 +5,8 @@ import LandingPage from "./components/LandingPage";
 import LoginPage from "./components/LoginPage";
 import PasswordReset from "./components/PasswordReset";
 import AdminPage from "./components/AdminPage";
+import ProjectPage from "./components/ProjectPage";
+import ProjectMenu from "./components/ProjectMenu";
 
 function App() {
   return (
@@ -14,6 +16,11 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/password-reset" element={<PasswordReset />} />
         <Route path="/admin" element={<AdminPage />} />
+        <Route path="/project-manager-projects" element={<ProjectPage />} />
+        <Route
+          path="/project-details-menu/:projectId"
+          element={<ProjectMenu />}
+        ></Route>
       </Routes>
     </Router>
   );
