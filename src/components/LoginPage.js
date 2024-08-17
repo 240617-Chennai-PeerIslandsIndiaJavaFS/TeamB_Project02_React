@@ -23,19 +23,17 @@ const LoginPage = () => {
           email
         )}&password=${encodeURIComponent(password)}`,
         {
-          method: "GET", // Use POST if possible for login
+          method: "GET", 
           headers: {
             "Content-Type": "application/json",
           },
         }
       );
 
-      console.log("Response Status:", response.status); // Debugging log
       if (response.ok) {
         const user = await response.json();
-        console.log("User Data:", user); // Debugging log
         if (user.userRole === "ADMIN") {
-          navigate("/admin/dashboard");
+          navigate("/admin");
         } else if (user.userRole === "TEAM_MEMBER") {
           navigate("/team-member", { state: { user } });
         } else if (user.userRole === "PROJECT_MANAGER") {
@@ -45,7 +43,6 @@ const LoginPage = () => {
         setMessage("Invalid email or password.");
       }
     } catch (error) {
-      console.error("Error during login:", error); // Debugging log
       setMessage("An error occurred. Please try again.");
     }
   };
