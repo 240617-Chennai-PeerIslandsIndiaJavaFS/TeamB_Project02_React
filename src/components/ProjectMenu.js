@@ -38,9 +38,6 @@ const ProjectMenu = () => {
           <Link className="project-link" to={`update-task/${projectId}`}>
             Update Task
           </Link>
-          <Link className="project-link" to={`delete-task/${projectId}`}>
-            Delete Task
-          </Link>
           <Link className="project-link" to={`view-task-details/${projectId}`}>
             View Task Details
           </Link>
