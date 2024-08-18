@@ -14,6 +14,7 @@ import RemoveTeamMember from "./components/RemoveTeamMember";
 import CreateTask from "./components/CreateTask";
 import UpdateTask from "./components/UpdateTask";
 import ViewTaskDetails from "./components/ViewTaskDetails";
+import TeamMemberPage from "./components/TeamMemberPage";
 
 function App() {
   return (
@@ -52,6 +53,7 @@ function App() {
             element={<ViewTaskDetails />}
           />
         </Route>
+        <Route path="/team-member" element={<TeamMemberPage />} />
       </Routes>
     </Router>
   );
