@@ -11,6 +11,7 @@ import ProjectMenu from "./components/ProjectMenu";
 import ProjectClientDetails from "./components/ProjectClientDetails";
 import AddTeamMember from "./components/AddTeamMember";
 import RemoveTeamMember from "./components/RemoveTeamMember";
+import CreateTask from "./components/CreateTask";
 
 function App() {
   return (
@@ -38,6 +39,10 @@ function App() {
           <Route
             path="remove-team-member-from-project/:projectId"
             element={<RemoveTeamMember />}
+          />
+          <Route
+            path="assign-task-to-team-member/:projectId"
+            element={<CreateTask />}
           />
         </Route>
       </Routes>
