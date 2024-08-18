@@ -1,5 +1,5 @@
 .project-page-container {
-  font-family: "'Roboto Slab', serif";
+  font-family: "'Roboto Slab', sans serif";
   background-image: url("../media/backgroundgeneral.png");
   background-color: rgba(255, 255, 255, 0.7);
   height: 100vh;
@@ -50,8 +50,11 @@
   background: #345b79;
 }
 
-.btn-primary11 {
+.project-sidebar .btn-primary11 {
   margin-top: auto;
+  color: white;
+  border: none;
+  padding: 10px 20px;
   text-align: center;
   font-size: 16px;
   padding: 10px 20px;
@@ -77,7 +80,16 @@
   overflow: hidden;
 }
 
-/* Responsive Design */
+.content h2 {
+  margin-top: 0;
+}
+
+iframe {
+  width: 100%;
+  height: calc(100vh - 60px);
+  border: none;
+}
+
 @media (max-width: 1024px) {
   .project-page {
     flex-direction: column;
