@@ -12,6 +12,7 @@ import ProjectClientDetails from "./components/ProjectClientDetails";
 import AddTeamMember from "./components/AddTeamMember";
 import RemoveTeamMember from "./components/RemoveTeamMember";
 import CreateTask from "./components/CreateTask";
+import UpdateTask from "./components/UpdateTask";
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
             path="assign-task-to-team-member/:projectId"
             element={<CreateTask />}
           />
+          <Route path="update-task/:projectId" element={<UpdateTask />} />
         </Route>
       </Routes>
     </Router>
