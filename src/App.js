@@ -15,6 +15,8 @@ import CreateTask from "./components/CreateTask";
 import UpdateTask from "./components/UpdateTask";
 import ViewTaskDetails from "./components/ViewTaskDetails";
 import TeamMemberPage from "./components/TeamMemberPage";
+import TaskPage from "./components/TaskPage";
+
 
 function App() {
   return (
@@ -54,6 +56,7 @@ function App() {
           />
         </Route>
         <Route path="/team-member" element={<TeamMemberPage />} />
+        <Route path="/team-member/task/:taskId" element={<TaskPage />} />
       </Routes>
     </Router>
   );

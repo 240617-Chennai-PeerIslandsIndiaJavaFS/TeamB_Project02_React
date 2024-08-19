@@ -57,7 +57,7 @@ const ProjectPage = () => {
       >
         Go Back
       </button>
-      <div className="row">
+      <div className="row-project">
         {projects.map((project, index) => (
           <div
             className="col-lg-3 col-md-6 col-s-12 mb-4"
@@ -66,7 +66,7 @@ const ProjectPage = () => {
             <div className="card-menu">
               <img
                 src={project.image}
-                className="card-img-top"
+                className=" card-img-top-project"
                 alt={project.projectName}
               />
               <div className="card2-body">
