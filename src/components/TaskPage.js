@@ -211,6 +211,44 @@ const TaskPage = () => {
             </Button>
           </Modal.Footer>
         </Modal>
+
+        <Modal
+          show={showClientDetails}
+          onHide={() => setShowClientDetails(false)}
+          size="lg"
+          centered
+        >
+          <Modal.Header closeButton className="task-modal-header">
+            <Modal.Title className="task-modal-title">
+              Client Details
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body className="task-modal-body">
+            <p>
+              <strong>Client ID:</strong> {client.clientId}
+            </p>
+            <p>
+              <strong>Client Name:</strong> {client.clientName}
+            </p>
+            <p>
+              <strong>Company Name:</strong> {client.clientCompanyName}
+            </p>
+            <p>
+              <strong>Client Email:</strong> {client.clientEmail}
+            </p>
+            <p>
+              <strong>Client Phone:</strong> {client.clientPhone}
+            </p>
+          </Modal.Body>
+          <Modal.Footer className="task-modal-footer">
+            <Button
+              variant="secondary"
+              onClick={() => setShowClientDetails(false)}
+            >
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </Container>
     </div>
   );
