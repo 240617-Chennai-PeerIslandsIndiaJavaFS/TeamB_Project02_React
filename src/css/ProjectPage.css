@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
+
 .containers {
   background-image: url("../media/backgroundgeneral.png");
   background-color: rgba(255, 255, 255, 0.7);
@@ -9,6 +11,7 @@
   align-items: center;
   justify-content: center;
   position: relative;
+  font-family: "Roboto", sans-serif;
 }
 
 .top-right-button {
@@ -23,23 +26,24 @@
   cursor: pointer;
   z-index: 1000;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  font-family: "Roboto", sans-serif;
 }
 
 .top-right-button:hover {
   background-color: #345b79;
 }
 
-.row-project {
+.row {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 16px; /* Reduced gap between cards */
+  gap: 16px;
   width: 100%;
 }
 
 .card-menu {
   width: 350px;
-  height: 380px;
+  height: 450px;
   background-color: white;
   border-radius: 8px;
   overflow: hidden;
@@ -49,6 +53,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  font-family: "Roboto", sans-serif;
 }
 
 .card-menu:hover {
@@ -62,20 +67,20 @@
   align-items: center;
   text-align: center;
   padding: 8px;
-  flex-grow-project: 1;
+  flex-grow: 1;
+  justify-content: space-between;
+  font-family: "Roboto", sans-serif;
 }
 
-. card-img-top-project {
+.card-img-top {
   width: 100%;
   height: 180px;
   object-fit: cover;
 }
 
 .btn-center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 8px;
+  margin-top: 16px;
+  margin-bottom: 8px;
 }
 
 .project-manager-button {
@@ -88,6 +93,7 @@
   display: inline-block;
   transition: background-color 0.3s, transform 0.3s;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  font-family: "Roboto", sans-serif;
 }
 
 .project-manager-button:hover {
