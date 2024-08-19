@@ -16,6 +16,7 @@ import UpdateTask from "./components/UpdateTask";
 import ViewTaskDetails from "./components/ViewTaskDetails";
 import TeamMemberPage from "./components/TeamMemberPage";
 import TaskPage from "./components/TaskPage";
+import CreateUser from "./components/CreateUser";
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
         <Route path="/password-reset" element={<PasswordReset />} />
         <Route path="/admin" element={<AdminPage />}>
           <Route path="dashboard" element={<Dashboard />} />
+          <Route path="registration" element={<CreateUser />} />
         </Route>
         <Route path="/project-manager-projects" element={<ProjectPage />} />
         <Route
