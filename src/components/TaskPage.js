@@ -134,6 +134,45 @@ const TaskPage = () => {
             </Card>
           </Col>
         </Row>
+
+        <Modal
+          show={showTaskDetails}
+          onHide={() => setShowTaskDetails(false)}
+          size="lg"
+          centered
+        >
+          <Modal.Header closeButton className="task-modal-header">
+            <Modal.Title className="task-modal-title">Task Details</Modal.Title>
+          </Modal.Header>
+          <Modal.Body className="task-modal-body">
+            <p>
+              <strong>Task ID:</strong> {task.taskId}
+            </p>
+            <p>
+              <strong>Task Name:</strong> {task.taskName}
+            </p>
+            <p>
+              <strong>Description:</strong> {task.description}
+            </p>
+            <p>
+              <strong>Start Date:</strong> {task.startDate}
+            </p>
+            <p>
+              <strong>End Date:</strong> {task.endDate}
+            </p>
+            <p>
+              <strong>Status:</strong> {task.milestone?.milestoneName || "N/A"}
+            </p>
+          </Modal.Body>
+          <Modal.Footer className="task-modal-footer">
+            <Button
+              variant="secondary"
+              onClick={() => setShowTaskDetails(false)}
+            >
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </Container>
     </div>
   );
