@@ -1,4 +1,5 @@
 .project-page-container {
+  font-family: "Roboto", sans-serif;
   font-family: "'Roboto Slab', serif";
   background-image: url("../media/backgroundgeneral.png");
   background-color: rgba(255, 255, 255, 0.7);
@@ -7,6 +8,7 @@
 }
 
 .project-page {
+  font-family: "Roboto", sans-serif;
   display: flex;
   width: 100%;
   height: 100vh;
@@ -25,17 +27,20 @@
 }
 
 .project-head {
+  font-family: "Roboto", sans-serif;
   color: white;
   text-align: center;
   margin-bottom: 20px;
 }
 
 .project-para {
+  font-family: "Roboto", sans-serif;
   margin: 10px 0;
   color: #f9f9f9;
 }
 
 .project-link {
+  font-family: "Roboto", sans-serif;
   color: white;
   text-decoration: none;
   display: block;
@@ -51,6 +56,7 @@
 }
 
 .project-sidebar .btn-primary11 {
+  font-family: "Roboto", sans-serif;
   margin-top: auto;
   color: white;
   border: none;

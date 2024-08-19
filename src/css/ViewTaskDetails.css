@@ -6,6 +6,7 @@
   border-radius: 10px;
   border: 1px solid #748d92;
   box-shadow: 0 8px 30px rgba(18, 78, 102, 0.3);
+  font-family: "Roboto", sans-serif;
 }
 
 .task-details-title {
@@ -13,6 +14,7 @@
   font-size: 24px;
   margin-bottom: 20px;
   color: #124e66;
+  font-family: "Roboto", sans-serif;
 }
 
 .field-group {
@@ -24,6 +26,7 @@
   font-weight: bold;
   margin-bottom: 8px;
   color: #124e66;
+  font-family: "Roboto", sans-serif;
 }
 
 .field-group-select {
@@ -32,6 +35,7 @@
   border: 1px solid #dcdcdc;
   border-radius: 5px;
   box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+  font-family: "Roboto", sans-serif;
 }
 
 .task-details {
@@ -42,6 +46,7 @@
   margin-bottom: 10px;
   color: #124e66;
   font-weight: bold;
+  font-family: "Roboto", sans-serif;
 }
 
 .timestamps {
@@ -54,6 +59,7 @@
   color: #4a90e2;
   margin-bottom: 15px;
   text-align: center;
+  font-family: "Roboto", sans-serif;
 }
 
 .timestamps-list {
@@ -72,6 +78,7 @@
 .timestamp-detail {
   margin-bottom: 5px;
   color: #124e66;
+  font-family: "Roboto", sans-serif;
 }
 
 .loading,
@@ -79,4 +86,5 @@
   font-size: 18px;
   color: #ff0000;
   font-weight: bold;
+  font-family: "Roboto", sans-serif;
 }

@@ -57,8 +57,8 @@ const ProjectPage = () => {
       >
         Go Back
       </button>
-      <div className="row-project">
-        {projects.map((project, index) => (
+      <div className="row">
+        {projects.map((project) => (
           <div
             className="col-lg-3 col-md-6 col-s-12 mb-4"
             key={project.projectId}
@@ -66,16 +66,18 @@ const ProjectPage = () => {
             <div className="card-menu">
               <img
                 src={project.image}
-                className=" card-img-top-project"
+                className="card-img-top"
                 alt={project.projectName}
               />
               <div className="card2-body">
-                <h5 className="card-title">
-                  <b>{project.projectName}</b>
-                </h5>
-                <p className="card-text">
-                  {project.description || "No description available."}
-                </p>
+                <div className="title-description-group">
+                  <h5 className="card-title">
+                    <b>{project.projectName}</b>
+                  </h5>
+                  <p className="card-text">
+                    {project.description || "No description available."}
+                  </p>
+                </div>
                 <div className="btn-center">
                   <button
                     onClick={() =>
