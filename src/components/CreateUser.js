@@ -42,7 +42,7 @@ const CreateUser = () => {
   };
 
   const validateAndSubmitForm = () => {
-    const { userId, userName, userRole, email, password, phone, specialization, status } =
+    const { userName, userRole, email, password, phone, specialization } =
       formData;
     console.log("Form data before validation:", formData);
     if (!userName || !userRole || !email || !password || !phone || !specialization) {

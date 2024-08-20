@@ -18,6 +18,8 @@ import TeamMemberPage from "./components/TeamMemberPage";
 import TaskPage from "./components/TaskPage";
 import CreateUser from "./components/CreateUser";
 import RemoveTask from "./components/RemoveTask";
+import UpdateUser from "./components/UpdateUser";
+
 
 function App() {
   return (
@@ -29,6 +31,7 @@ function App() {
         <Route path="/admin" element={<AdminPage />}>
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="registration" element={<CreateUser />} />
+          <Route path="update-user" element={<UpdateUser />} />
         </Route>
         <Route path="/project-manager-projects" element={<ProjectPage />} />
         <Route
