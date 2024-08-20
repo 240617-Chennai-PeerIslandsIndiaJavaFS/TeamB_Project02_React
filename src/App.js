@@ -21,6 +21,7 @@ import RemoveTask from "./components/RemoveTask";
 import UpdateUser from "./components/UpdateUser";
 import DeactivateUser from "./components/DeactiveUser";
 import AssignRole from "./components/AssignRole";
+import CreateClient from "./components/CreateClient";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
           <Route path="update-user" element={<UpdateUser />} />
           <Route path="deactivate-user" element={<DeactivateUser />} />
           <Route path="assign-role" element={<AssignRole />} />
+          <Route path="create-client" element={<CreateClient />} />
 
         </Route>
         <Route path="/project-manager-projects" element={<ProjectPage />} />
