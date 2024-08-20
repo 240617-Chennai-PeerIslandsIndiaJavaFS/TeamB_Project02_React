@@ -64,20 +64,20 @@ const RemoveTask = () => {
 
       <h3 className="project-name">{projectName}</h3>
 
-      <div className="task-cards">
+      <div className="task-card-removes">
         {tasks.length > 0 ? (
           tasks.map((task) => (
-            <div key={task.taskId} className="task-card">
-              <div className="task-detail">
-                <h4 className="task-label">Task ID:</h4>
-                <p className="task-value">{task.taskId}</p>
+            <div key={task.taskId} className="task-card-remove">
+              <div className="task-detail-remove">
+                <h4 className="task-detail-remove">Task ID:</h4>
+                <p className="task-detail-remove">{task.taskId}</p>
               </div>
-              <div className="task-detail">
-                <h4 className="task-label">Task Name:</h4>
-                <p className="task-value">{task.taskName}</p>
+              <div className="task-detail-remove">
+                <h4 className="task-detail-remove">Task Name:</h4>
+                <p className="task-detail-remove">{task.taskName}</p>
               </div>
               <button
-                className="remove-button"
+                className="remove-button-btn"
                 onClick={() => handleRemoveTask(task.taskId)}
               >
                 Remove
