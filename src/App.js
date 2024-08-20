@@ -20,6 +20,7 @@ import CreateUser from "./components/CreateUser";
 import RemoveTask from "./components/RemoveTask";
 import UpdateUser from "./components/UpdateUser";
 import DeactivateUser from "./components/DeactiveUser";
+import AssignRole from "./components/AssignRole";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
           <Route path="registration" element={<CreateUser />} />
           <Route path="update-user" element={<UpdateUser />} />
           <Route path="deactivate-user" element={<DeactivateUser />} />
+          <Route path="assign-role" element={<AssignRole />} />
 
         </Route>
         <Route path="/project-manager-projects" element={<ProjectPage />} />

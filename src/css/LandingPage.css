@@ -172,7 +172,7 @@
 }
 
 .btn-getstarted:hover {
-  background-color: #3c74bb;
+  background-color: #3c74bb !important;
   transform: translateY(-2px);
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
