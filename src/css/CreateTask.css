@@ -1,12 +1,14 @@
 .create-task-wrapper {
   font-family: "Roboto", sans-serif;
   max-width: 750px;
-  margin: 20px auto;
-  padding: 20px;
+  margin: 10% auto;
+  padding: 15px;
   background-color: #ffffff;
   border-radius: 10px;
   border: 1px solid #748d92;
   box-shadow: 0 8px 30px rgba(18, 78, 102, 0.3);
+  max-height: 600px;
+  overflow-y: auto;
 }
 
 .create-task-title {
