@@ -18,6 +18,7 @@ import TeamMemberPage from "./components/TeamMemberPage";
 import TaskPage from "./components/TaskPage";
 import CreateUser from "./components/CreateUser";
 import RemoveTask from "./components/RemoveTask";
+import UpdateTaskStatus from "./components/UpdateTaskStatus";
 import UpdateUser from "./components/UpdateUser";
 import DeactivateUser from "./components/DeactiveUser";
 import AssignRole from "./components/AssignRole";
@@ -39,7 +40,6 @@ function App() {
           <Route path="assign-role" element={<AssignRole />} />
           <Route path="create-client" element={<CreateClient />} />
           <Route path="user-details" element={<UserDetails />} />
-
         </Route>
         <Route path="/project-manager-projects" element={<ProjectPage />} />
         <Route
@@ -71,6 +71,10 @@ function App() {
         </Route>
         <Route path="/team-member" element={<TeamMemberPage />} />
         <Route path="/team-member/task/:taskId" element={<TaskPage />} />
+        <Route
+          path="/team-member/update-task-status"
+          element={<UpdateTaskStatus />}
+        />
       </Routes>
     </Router>
   );

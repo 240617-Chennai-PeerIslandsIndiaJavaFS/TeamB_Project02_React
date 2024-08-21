@@ -71,7 +71,7 @@ const TeamMemberPage = () => {
         </Col>
       </Row>
       <Row className="mb-4 tasks-detail">
-        <Col>
+        <Col id="your-tasks">
           <h2 id="head">Your Tasks:</h2>
         </Col>
         <Col>
@@ -102,7 +102,7 @@ const TeamMemberPage = () => {
             onClick={handleUpdateStatusClick}
             className="full-width-button"
           >
-            Update Task Status
+            Update Task Milestone
           </Button>
         </Col>
       </Row>
