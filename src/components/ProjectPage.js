@@ -81,7 +81,9 @@ const ProjectPage = () => {
                 <div className="btn-center">
                   <button
                     onClick={() =>
-                      navigate(`/project-details-menu/${project.projectId}`)
+                      navigate(
+                        `/project-details-menu/${project.projectId}/project-dashboard/${project.projectId}`
+                      )
                     }
                     className="btn btn-outline-primary project-manager-button"
                   >

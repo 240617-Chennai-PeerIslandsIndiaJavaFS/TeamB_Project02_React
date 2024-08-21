@@ -11,6 +11,9 @@ const ProjectMenu = () => {
         <div className="project-sidebar">
           <h1 className="project-head">Project Actions</h1>
           <p className="project-para">Choose an action:</p>
+          <Link className="project-link" to={`project-dashboard/${projectId}`}>
+            Dashboard
+          </Link>
           <Link
             className="project-link"
             to={`viewprojectclientdetails/${projectId}`}

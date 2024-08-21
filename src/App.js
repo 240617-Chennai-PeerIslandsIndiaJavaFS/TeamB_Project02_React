@@ -24,6 +24,7 @@ import DeactivateUser from "./components/DeactiveUser";
 import AssignRole from "./components/AssignRole";
 import CreateClient from "./components/CreateClient";
 import UserDetails from "./components/UserDetails";
+import TaskMilestoneChart from "./components/TaskMilestoneChart";
 
 function App() {
   return (
@@ -67,6 +68,10 @@ function App() {
           <Route
             path="view-task-details/:projectId"
             element={<ViewTaskDetails />}
+          />
+          <Route
+            path="project-dashboard/:projectId"
+            element={<TaskMilestoneChart />}
           />
         </Route>
         <Route path="/team-member" element={<TeamMemberPage />} />
