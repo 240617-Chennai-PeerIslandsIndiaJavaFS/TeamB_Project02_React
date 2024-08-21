@@ -22,6 +22,7 @@ import UpdateUser from "./components/UpdateUser";
 import DeactivateUser from "./components/DeactiveUser";
 import AssignRole from "./components/AssignRole";
 import CreateClient from "./components/CreateClient";
+import UserDetails from "./components/UserDetails";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
           <Route path="deactivate-user" element={<DeactivateUser />} />
           <Route path="assign-role" element={<AssignRole />} />
           <Route path="create-client" element={<CreateClient />} />
+          <Route path="user-details" element={<UserDetails />} />
 
         </Route>
         <Route path="/project-manager-projects" element={<ProjectPage />} />
