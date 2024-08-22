@@ -111,7 +111,7 @@ const UpdateTask = () => {
       };
 
       const response = await fetch(
-        `http://localhost:8080/api/tasks/${selectedTask}`,
+        `http://localhost:8080/api/tasks/manager/${selectedTask}`,
         {
           method: "PUT",
           headers: {
