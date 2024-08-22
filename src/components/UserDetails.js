@@ -1,36 +1,45 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../css/UserDetails.css"; 
 
 const UserDetails = () => {
-  const [userId, setUserId] = useState("");
+  const [users, setUsers] = useState([]); 
+  const [selectedUserId, setSelectedUserId] = useState(""); 
   const [error, setError] = useState("");
   const [user, setUser] = useState(null);
 
-  const handleInputChange = (e) => {
-    setUserId(e.target.value);
+  useEffect(() => {
+    
+    axios
+      .get("http://localhost:8080/api/admin/users")
+      .then((response) => {
+        setUsers(response.data); 
+      })
+      .catch((error) => {
+        console.error("There was an error fetching the users!", error);
+        setError("There was an error fetching the users.");
+      });
+  }, []);
+
+  const handleUserChange = (e) => {
+    setSelectedUserId(e.target.value);
+    setUser(null); 
   };
 
   const fetchUserDetails = (e) => {
     e.preventDefault();
     setError("");
-    setUser(null); // This is for clearing any previously associated user details
 
-    if (!userId) {
-      setError("Please enter a User ID.");
-      return;
-    }
-
-    if (isNaN(userId) || parseInt(userId, 10) <= 0) {
-      setError("Invalid User ID. Please enter a positive number.");
+    if (!selectedUserId) {
+      setError("Please select a User.");
       return;
     }
 
     axios
-      .get(`http://localhost:8080/api/admin/users/${userId}`)
+      .get(`http://localhost:8080/api/admin/users/${selectedUserId}`)
       .then((response) => {
         if (response.data) {
-          setUser(response.data); // Setting the details of the user that has been fetched
+          setUser(response.data); 
         } else {
           setError("User not found.");
         }
@@ -46,28 +55,34 @@ const UserDetails = () => {
       <h2 className="user-details-title">Fetch User Details</h2>
       <form id="fetchForm" className="user-details-form">
         <label htmlFor="userId" className="user-details-label">
-          User ID:
+          Select User:
         </label>
-        <input
-          type="number"
+        <select
           id="userId"
           name="userId"
-          value={userId}
-          onChange={handleInputChange}
+          value={selectedUserId}
+          onChange={handleUserChange}
           required
           className="user-details-info"
-        />
+        >
+          <option value="">-- Select a User --</option>
+          {users.map((user) => (
+            <option key={user.userId} value={user.userId}>
+              {user.userName} (ID: {user.userId})
+            </option>
+          ))}
+        </select>
         <button
           type="button"
           className="user-details-button common"
           onClick={fetchUserDetails}
         >
-          Fetch User 
+          Fetch User
         </button>
         {error && <p className="user-details-error">{error}</p>}
       </form>
 
-      {/* Display user details if they are fetched */}
+      
       {user && (
         <div className="user-details-display">
           <h3 className="user-details-title">User Details:</h3>
