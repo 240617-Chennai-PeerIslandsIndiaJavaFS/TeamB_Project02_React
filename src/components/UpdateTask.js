@@ -234,7 +234,7 @@ const UpdateTask = () => {
             <button type="submit" className="submit-button" disabled={loading}>
               {loading ? "Updating..." : "Update Task"}
             </button>
-            {error && <p className="error-message">{error}</p>}
+            {/* {error && <p className="error-message">{error}</p>} */}
           </>
         )}
       </form>
