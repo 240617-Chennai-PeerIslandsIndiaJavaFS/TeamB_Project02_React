@@ -12,6 +12,7 @@ const CreateUser = () => {
     phone: "",
     specialization: "",
     status: "ACTIVE", 
+    dateOfJoining: "", // Added dateOfJoining field
   };
 
   const [formData, setFormData] = useState(initialFormData);
@@ -42,10 +43,10 @@ const CreateUser = () => {
   };
 
   const validateAndSubmitForm = () => {
-    const { userName, userRole, email, password, phone, specialization } =
+    const { userName, userRole, email, password, phone, specialization, dateOfJoining } =
       formData;
     console.log("Form data before validation:", formData);
-    if (!userName || !userRole || !email || !password || !phone || !specialization) {
+    if (!userName || !userRole || !email || !password || !phone || !specialization || !dateOfJoining) {
       alert("Please fill in all the required fields.");
       return;
     }
@@ -139,6 +140,18 @@ const CreateUser = () => {
           name="specialization"
           className="registration-form-input"
           value={formData.specialization}
+          onChange={handleChange}
+          required
+        />
+        <br className="registration-form-break" />
+
+        <label htmlFor="dateOfJoining" className="registration-form-label">Date of Joining:</label>
+        <input
+          type="date"
+          id="dateOfJoining"
+          name="dateOfJoining"
+          className="registration-form-input"
+          value={formData.dateOfJoining}
           onChange={handleChange}
           required
         />
