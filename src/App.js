@@ -25,6 +25,7 @@ import AssignRole from "./components/AssignRole";
 import CreateClient from "./components/CreateClient";
 import UserDetails from "./components/UserDetails";
 import TaskMilestoneChart from "./components/TaskMilestoneChart";
+import CreateProject from "./components/CreateProject";
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
           <Route path="assign-role" element={<AssignRole />} />
           <Route path="create-client" element={<CreateClient />} />
           <Route path="user-details" element={<UserDetails />} />
+          <Route path="create-project" element={<CreateProject />} />
         </Route>
         <Route path="/project-manager-projects" element={<ProjectPage />} />
         <Route
