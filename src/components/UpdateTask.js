@@ -122,6 +122,7 @@ const UpdateTask = () => {
       );
 
       if (!response.ok) throw new Error("Failed to update task");
+
       const result = await response.json();
       alert("Task updated successfully");
     } catch (err) {
@@ -162,7 +163,6 @@ const UpdateTask = () => {
             ))}
           </select>
         </div>
-
         {selectedTask && (
           <>
             <div className="field-group">
@@ -178,7 +178,6 @@ const UpdateTask = () => {
                 className="field-group-input"
               />
             </div>
-
             <div className="field-group">
               <label htmlFor="description" className="field-group-label">
                 Description
@@ -191,7 +190,6 @@ const UpdateTask = () => {
                 className="field-group-textarea"
               />
             </div>
-
             <div className="field-group">
               <label htmlFor="userId" className="field-group-label">
                 Assigned User
@@ -211,7 +209,6 @@ const UpdateTask = () => {
                 ))}
               </select>
             </div>
-
             <div className="field-group">
               <label htmlFor="milestoneId" className="field-group-label">
                 Milestone
@@ -234,11 +231,10 @@ const UpdateTask = () => {
                 ))}
               </select>
             </div>
-
             <button type="submit" className="submit-button" disabled={loading}>
               {loading ? "Updating..." : "Update Task"}
             </button>
-            {/* {error && <p className="error-message">{error}</p>} */}
+            {error && <p className="error-message">{error}</p>}
           </>
         )}
       </form>
