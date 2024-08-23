@@ -26,6 +26,7 @@ import CreateClient from "./components/CreateClient";
 import UserDetails from "./components/UserDetails";
 import TaskMilestoneChart from "./components/TaskMilestoneChart";
 import CreateProject from "./components/CreateProject";
+import TaskDetails from "./components/TaskDetails";
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
           <Route path="create-client" element={<CreateClient />} />
           <Route path="user-details" element={<UserDetails />} />
           <Route path="create-project" element={<CreateProject />} />
+          <Route path="monitor-task-details" element={<TaskDetails />} />
         </Route>
         <Route path="/project-manager-projects" element={<ProjectPage />} />
         <Route
