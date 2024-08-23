@@ -191,9 +191,10 @@
   .landing-page-logo {
     max-width: 100%;
   }
-
+}
+@media (max-width: 768px) {
   .product-name {
-    font-size: 100px;
+    font-size: 50px;
   }
 }
 
