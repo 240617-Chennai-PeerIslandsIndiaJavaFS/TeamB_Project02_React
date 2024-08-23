@@ -1,38 +1,44 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../css/DeactiveUser.css";
 
 const DeactivateUser = () => {
-  const initialFormData = {
-    user_id: "",
-    status: "INACTIVE",
-  };
+  const [users, setUsers] = useState([]);
+  const [selectedUserId, setSelectedUserId] = useState("");
+  const [error, setError] = useState("");
 
-  const [formData, setFormData] = useState(initialFormData);
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/api/admin/users")
+      .then((response) => {
+        const activeUsers = response.data.filter((user) => user.status === "ACTIVE");
+        setUsers(activeUsers);
+      })
+      .catch((error) => {
+        console.error("There was an error fetching the users!", error);
+        setError("There was an error fetching the users.");
+      });
+  }, []);
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+  const handleUserChange = (e) => {
+    setSelectedUserId(e.target.value);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const { user_id, status } = formData;
-
-    if (!user_id || !status) {
-      alert("Please fill in all the required fields.");
+    if (!selectedUserId) {
+      alert("Please select a User.");
       return;
     }
 
     axios
-      .put(`http://localhost:8080/api/admin/deactivateUser/${user_id}`, { status })
+      .put(`http://localhost:8080/api/admin/deactivateUser/${selectedUserId}`, { status: "INACTIVE" })
       .then((response) => {
-        console.log("User deactivated:", response.data);
         alert("User deactivated successfully!");
-        setFormData(initialFormData);
+        setSelectedUserId("");
+        // Filter out the deactivated user from the list of active users
+        setUsers(users.filter((user) => user.userId !== selectedUserId));
       })
       .catch((error) => {
         console.error("There was an error deactivating the user!", error);
@@ -41,35 +47,27 @@ const DeactivateUser = () => {
   };
 
   return (
-    <div id="createUserForm" className="deactivate-form-container">
+    <div id="deactivateUserForm" className="deactivate-form-container">
       <h2 className="deactivate-title">Deactivate User</h2>
-      <form id="userForm" className="deactivate-form" onSubmit={handleSubmit}>
-        <label htmlFor="user_id" className="deactivate-label">UserID:</label>
-        <input
-          type="number"
-          id="user_id"
-          name="user_id"
-          className="deactivate-input"
-          value={formData.user_id}
-          onChange={handleChange}
-          required
-        />
-        <br />
-
-        <label htmlFor="status" className="deactivate-label">Status:</label>
+      <form id="deactivateForm" className="deactivate-form" onSubmit={handleSubmit}>
+        <label htmlFor="userId" className="deactivate-label">Select User:</label>
         <select
-          id="status"
-          name="status"
-          className="deactivate-select"
-          value={formData.status}
-          onChange={handleChange}
+          id="userId"
+          name="userId"
+          value={selectedUserId}
+          onChange={handleUserChange}
           required
+          className="deactivate-select"
         >
-          <option value="" className="deactivate-option">Select Status</option>
-          <option value="INACTIVE" className="deactivate-option">INACTIVE</option>
+          <option value="">-- Select an Active User --</option>
+          {users.map((user) => (
+            <option key={user.userId} value={user.userId}>
+              {user.userName} (ID: {user.userId})
+            </option>
+          ))}
         </select>
+        {error && <p className="deactivate-error">{error}</p>}
         <br />
-
         <button type="submit" className="deactivate-button common">
           Deactivate
         </button>

@@ -72,6 +72,7 @@ const UserDetails = () => {
             </option>
           ))}
         </select>
+        <br />
         <button
           type="button"
           className="user-details-button common"

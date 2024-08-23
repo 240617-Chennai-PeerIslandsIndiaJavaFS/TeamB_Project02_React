@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../css/ProjectPage.css";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate,Link } from "react-router-dom";
 
 import logo1 from "../media/1.jpg";
 import logo2 from "../media/logo2.jpg";
@@ -51,12 +51,9 @@ const ProjectPage = () => {
 
   return (
     <div className="containers">
-      <button
-        className="top-right-button"
-        onClick={() => window.history.back()}
-      >
+      <Link className="top-right-button" to="/login">
         Go Back
-      </button>
+      </Link>
       <div className="row-project">
         {projects.map((project) => (
           <div
