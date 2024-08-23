@@ -34,7 +34,7 @@
   padding: 15px;
   background: #212a31;
   color: #d3d9d4;
-  height: 70vh;
+  min-height: 70vh;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -45,7 +45,7 @@
 }
 
 .statushead {
-  height: 85px;
+  min-height: 85px;
   text-align: center;
   margin-bottom: 15px;
   font-weight: 700;

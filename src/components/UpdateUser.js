@@ -3,7 +3,7 @@ import axios from "axios";
 import "../css/UpdateUser.css";
 
 const UpdateUser = () => {
-  const [users, setUsers] = useState([]); 
+  const [users, setUsers] = useState([]);
   const [formData, setFormData] = useState({
     user_id: "",
     role: "",
@@ -89,7 +89,9 @@ const UpdateUser = () => {
         </select>
         <br />
 
-        <label htmlFor="role" className="update-form-label">Role:</label>
+        <label htmlFor="role" className="update-form-label">
+          Role:
+        </label>
         <select
           id="role"
           name="role"
@@ -105,7 +107,9 @@ const UpdateUser = () => {
         </select>
         <br />
 
-        <label htmlFor="status" className="update-form-label">Status:</label>
+        <label htmlFor="status" className="update-form-label">
+          Status:
+        </label>
         <select
           id="status"
           name="status"
@@ -120,7 +124,9 @@ const UpdateUser = () => {
         </select>
         <br />
 
-        <label htmlFor="specialization" className="update-form-label">Specialization:</label>
+        <label htmlFor="specialization" className="update-form-label">
+          Specialization:
+        </label>
         <input
           type="text"
           id="specialization"
