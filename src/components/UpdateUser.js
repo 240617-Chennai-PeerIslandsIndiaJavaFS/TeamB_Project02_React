@@ -25,7 +25,7 @@ const UpdateUser = () => {
 
     const { user_id, role, managerid, status } = formData;
 
-    if (!user_id || !role || !managerid || !status) {
+    if (!user_id || !role || !status) {
       alert("Please fill in all the required fields.");
       return;
     }
@@ -77,18 +77,6 @@ const UpdateUser = () => {
           <option value="PROJECT_MANAGER">PROJECT_MANAGER</option>
           <option value="TEAM_MEMBER">TEAM_MEMBER</option>
         </select>
-        <br />
-
-        <label htmlFor="managerid" className="update-form-label">ManagerID:</label>
-        <input
-          type="number"
-          id="managerid"
-          name="managerid"
-          className="update-form-input"
-          value={formData.managerid}
-          onChange={handleChange}
-          required
-        />
         <br />
 
         <label htmlFor="status" className="update-form-label">Status:</label>
