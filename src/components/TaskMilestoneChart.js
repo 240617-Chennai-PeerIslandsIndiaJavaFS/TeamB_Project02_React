@@ -23,8 +23,20 @@ ChartJS.register(
 const TaskMilestoneChart = () => {
   const { projectId } = useParams();
   const [taskData, setTaskData] = useState([]);
+  const [projectName, setProjectName] = useState("");
 
   useEffect(() => {
+    const fetchProjectDetails = async () => {
+      try {
+        const projectResponse = await axios.get(
+          `http://localhost:8080/api/projects/${projectId}`
+        );
+        setProjectName(projectResponse.data.projectName);
+      } catch (error) {
+        console.error("Error fetching project details:", error);
+      }
+    };
+
     const fetchTasks = async () => {
       try {
         const tasksResponse = await axios.get(
@@ -36,6 +48,7 @@ const TaskMilestoneChart = () => {
       }
     };
 
+    fetchProjectDetails();
     fetchTasks();
   }, [projectId]);
 
@@ -130,7 +143,7 @@ const TaskMilestoneChart = () => {
 
   return (
     <div className="chart-container">
-      <h2>Project Overview</h2>
+      <h2>{projectName}</h2>
       <Bar data={chartData} options={chartOptions} />
     </div>
   );
