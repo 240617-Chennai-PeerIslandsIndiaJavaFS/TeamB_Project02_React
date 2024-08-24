@@ -47,8 +47,8 @@ const ProjectMenu = () => {
           <Link className="project-link" to={`view-task-details/${projectId}`}>
             View Task Details
           </Link>
-          <Link className="btn-primary11" to="/project-manager-projects">
-            Go Back
+          <Link className="btn-primary11" to="/login">
+            Logout
           </Link>
         </div>
         <div className="content" id="content">
