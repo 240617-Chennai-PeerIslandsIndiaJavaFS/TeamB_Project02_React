@@ -3,6 +3,8 @@
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  max-height: 80vh;
+  overflow-y: auto;
 }
 
 .tasks-page-title {
@@ -45,4 +47,42 @@
 .tasks-page-empty-message {
   color: #888;
   font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .tasks-page-table {
+    display: block;
+  }
+
+  .tasks-page-header {
+    display: none;
+  }
+
+  .tasks-page-row {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+  }
+
+  .tasks-page-item {
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .tasks-page-item::before {
+    content: attr(data-label);
+    font-weight: bold;
+    color: #333;
+    margin-right: 10px;
+    flex: 0 0 auto;
+  }
+
+  .tasks-page-item:last-child {
+    border-bottom: none;
+  }
 }

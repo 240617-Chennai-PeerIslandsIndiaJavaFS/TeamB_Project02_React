@@ -142,5 +142,7 @@ iframe {
 
   .content {
     padding: 10px;
+    height: 0%;
+    overflow: scroll !important;
   }
 }
