@@ -8,7 +8,6 @@ const AssignRole = () => {
     role: "",
   });
   const [users, setUsers] = useState([]);
-  const [currentRole, setCurrentRole] = useState("");
 
   useEffect(() => {
     // Fetch the list of users when the component mounts
@@ -29,28 +28,6 @@ const AssignRole = () => {
       ...formData,
       [e.target.name]: e.target.value,
     });
-  };
-
-  const handleUserChange = async (e) => {
-    const selectedUserId = e.target.value;
-    setFormData({
-      ...formData,
-      userid: selectedUserId,
-    });
-
-    if (selectedUserId) {
-      try {
-        // Fetch user details to get the current role
-        const response = await axios.get(`http://localhost:8080/api/admin/user/${selectedUserId}`);
-        console.log("Fetched user data:", response.data); // Debugging line
-        setCurrentRole(response.data.role); // Assuming the response contains the role
-      } catch (error) {
-        console.error("There was an error fetching user details!", error);
-        setCurrentRole(""); // Reset current role if there's an error
-      }
-    } else {
-      setCurrentRole(""); // Reset current role if no user is selected
-    }
   };
 
   const handleSubmit = (e) => {
@@ -74,7 +51,6 @@ const AssignRole = () => {
           userid: "",
           role: "",
         });
-        setCurrentRole(""); // Reset current role after successful assignment
       })
       .catch((error) => {
         console.error("There was an error assigning the role!", error);
@@ -92,7 +68,7 @@ const AssignRole = () => {
           name="userid"
           className="assign-role-select"
           value={formData.userid}
-          onChange={handleUserChange}
+          onChange={handleChange}
           required
         >
           <option value="" className="assign-role-option">Select User</option>
@@ -104,22 +80,7 @@ const AssignRole = () => {
         </select>
         <br />
 
-        {currentRole && (
-          <div className="current-role-container">
-            <label htmlFor="currentRole" className="assign-role-label">Current Role:</label>
-            <input
-              type="text"
-              id="currentRole"
-              name="currentRole"
-              className="assign-role-input"
-              value={currentRole}
-              readOnly
-            />
-            <br />
-          </div>
-        )}
-
-        <label htmlFor="role" className="assign-role-label">New Role:</label>
+        <label htmlFor="role" className="assign-role-label">Role:</label>
         <select
           id="role"
           name="role"
