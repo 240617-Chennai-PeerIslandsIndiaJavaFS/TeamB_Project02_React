@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ProjectManagerNavbar from "./ProjectManagerNavbar";
 import ProjectPage from "./ProjectPage";
 import ClientDetailsPage from "./ClientDetailsPage";
-// import UserDetailsPage from "./UserDetailsPage";
+import UserDetailsPage from "./UserDetailsPage";
 // import TasksPageForManager from "./TasksPageForManager";
 
 const ProjectManagerPage = () => {
@@ -14,8 +14,8 @@ const ProjectManagerPage = () => {
         return <ProjectPage />;
       case "clients":
         return <ClientDetailsPage />;
-      // case "users":
-      //   return <UserDetailsPage />;
+      case "users":
+        return <UserDetailsPage />;
       // case "tasks":
       //   return <TasksPageForManager />;
       default:
