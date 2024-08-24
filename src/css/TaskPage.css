@@ -1,0 +1,121 @@
+.task-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-image: url("../media/backgroundgeneral.png");
+  background-color: rgba(255, 255, 255, 0.7);
+  font-family: "Roboto", sans-serif;
+}
+
+.task-card {
+  height: 750px;
+  width: 23rem;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  margin-left: 40px;
+  margin-right: 40px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 10px 20px rgba(18, 78, 102, 0.4),
+    0 6px 6px rgba(18, 78, 102, 0.2);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.task-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 15px 30px rgba(18, 78, 102, 0.4),
+    0 8px 10px rgba(18, 78, 102, 0.3);
+}
+
+.task-card-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.task-card-body .task-card-title {
+  margin-bottom: auto;
+}
+
+.task-card-body .task-card-text {
+  margin-bottom: auto;
+}
+
+.task-btn-primary {
+  transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+  margin-top: auto;
+  background-color: #748d92;
+  border: #d3d9d4;
+}
+
+.task-btn-primary:hover {
+  background-color: #124e66;
+  transform: scale(1.05);
+}
+
+.task-modal.fade .task-modal-dialog {
+  transition: transform 0.3s ease-out;
+  transform: translateY(-50px);
+}
+
+.task-modal.show .task-modal-dialog {
+  transform: translateY(0);
+}
+
+.task-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.task-modal-lg {
+  width: 90%;
+}
+
+.task-modal-dialog-centered {
+  display: flex;
+  align-items: center;
+  min-height: calc(100% - 1rem);
+}
+
+.task-modal-content {
+  border-radius: 10px;
+  overflow: hidden;
+}
+.modal-dialog-centered {
+  align-items: normal;
+}
+.modal-lg {
+  --bs-modal-width: 90vw;
+  height: 85vh;
+}
+
+.task-modal-header {
+  background-image: radial-gradient(
+    circle,
+    #748d92,
+    #5e7279,
+    #485960,
+    #344148,
+    #212a31
+  );
+  color: white;
+}
+
+.task-modal-title {
+  font-weight: bold;
+}
+
+.task-modal-body {
+  background-color: #f8f9fa;
+  overflow-y: auto;
+  font-size: larger;
+  margin: 30px 30px 30px 30px;
+}
+
+.task-modal-footer {
+  background-color: #f8f9fa;
+}

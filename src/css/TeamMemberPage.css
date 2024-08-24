@@ -1,0 +1,83 @@
+.tm-login {
+  background-image: url("../media/backgroundgeneral.png");
+  background-color: rgba(255, 255, 255, 0.7);
+  font-family: "Roboto", sans-serif;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 100%;
+  position: relative;
+}
+
+.top-right-logo {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 300px;
+  height: auto;
+}
+
+.tasks-detail {
+  display: flex;
+  flex-direction: column;
+  margin-left: 30px;
+  margin-right: 30px;
+}
+
+#head {
+  text-align: left;
+  font-size: 30px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.welcome {
+  font-size: x-large;
+  margin-top: 50px;
+  margin-left: 30px;
+  margin-right: 30px;
+}
+
+.full-width-button {
+  width: 85%;
+  background-color: #124e66;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: bold;
+  box-shadow: 0 4px 6px rgba(55, 31, 172, 0.1);
+  margin-bottom: 50px;
+  margin-left: 80px;
+}
+
+.full-width-button:hover {
+  background-color: #2e3944;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.task-item {
+  background-color: #2e3944;
+  border: 1px solid #dee2e6;
+  padding: 15px 20px;
+  font-size: 18px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  color: #d3d9d4;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 95%;
+  margin-bottom: 10px;
+}
+
+.task-item:hover {
+  background-color: #212a31;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px #2e3944;
+}
