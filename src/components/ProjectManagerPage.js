@@ -3,7 +3,7 @@ import ProjectManagerNavbar from "./ProjectManagerNavbar";
 import ProjectPage from "./ProjectPage";
 import ClientDetailsPage from "./ClientDetailsPage";
 import UserDetailsPage from "./UserDetailsPage";
-// import TasksPageForManager from "./TasksPageForManager";
+import TasksPageForManager from "./TasksPageForManager";
 
 const ProjectManagerPage = () => {
   const [activeSection, setActiveSection] = useState("projects");
@@ -16,8 +16,8 @@ const ProjectManagerPage = () => {
         return <ClientDetailsPage />;
       case "users":
         return <UserDetailsPage />;
-      // case "tasks":
-      //   return <TasksPageForManager />;
+      case "tasks":
+        return <TasksPageForManager />;
       default:
         return <ProjectPage />;
     }
