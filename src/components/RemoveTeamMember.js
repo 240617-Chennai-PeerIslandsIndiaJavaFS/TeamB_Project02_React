@@ -1,112 +1,138 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import axios from "axios";
+import Modal from "./Modal";
 import "../css/RemoveTeamMember.css";
 
 const RemoveTeamMember = () => {
+  const { projectId } = useParams();
+  const [teamName, setTeamName] = useState("");
   const [teamId, setTeamId] = useState("");
   const [userId, setUserId] = useState("");
-  const [teamIds, setTeamIds] = useState([]);
   const [usersInTeam, setUsersInTeam] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8080/api/teams")
-      .then((response) => {
-        const teamIds = response.data.map((team) => team.teamId);
-        setTeamIds(teamIds);
-      })
-      .catch((error) => {
-        console.error("Error fetching team IDs:", error);
-        setTeamIds([]);
-      });
-  }, []);
-
-  useEffect(() => {
-    if (teamId) {
+    if (projectId) {
       axios
-        .get(`http://localhost:8080/api/teamMember?teamId=${teamId}`)
+        .get(`http://localhost:8080/api/teams/project/${projectId}`)
         .then((response) => {
-          const usersInTeam = response.data.map((member) => ({
-            userId: member.user.userId,
-            userName: member.user.userName,
-          }));
-          setUsersInTeam(usersInTeam);
+          const team = response.data;
+          if (team) {
+            setTeamName(team.teamName);
+            setTeamId(team.teamId);
+            axios
+              .get(`http://localhost:8080/api/teamMember?teamId=${team.teamId}`)
+              .then((response) => {
+                const users = response.data.map((member) => ({
+                  userId: member.user.userId,
+                  userName: member.user.userName,
+                }));
+                setUsersInTeam(users);
+              })
+              .catch((error) => {
+                console.error("Error fetching team members:", error);
+                setUsersInTeam([]);
+              });
+          } else {
+            console.error("No team found for the provided project ID.");
+            setTeamName("");
+            setTeamId("");
+            setUsersInTeam([]);
+          }
         })
         .catch((error) => {
-          console.error("Error fetching team members:", error);
+          console.error("Error fetching team:", error);
+          setTeamName("");
+          setTeamId("");
           setUsersInTeam([]);
         });
-    } else {
-      setUsersInTeam([]);
     }
-  }, [teamId]);
+  }, [projectId]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleRemove = () => {
+    setShowModal(true);
+  };
+
+  const handleConfirm = () => {
     setLoading(true);
 
-    axios
-      .delete(
-        `http://localhost:8080/api/teamMember?userId=${userId}&teamId=${teamId}`
-      )
-      .then((response) => {
-        console.log("Team member removed successfully:", response.data);
+    if (teamId && userId) {
+      axios
+        .delete(
+          `http://localhost:8080/api/teamMember?userId=${userId}&teamId=${teamId}`
+        )
+        .then((response) => {
+          console.log("Team member removed successfully:", response.data);
 
-        return axios.patch(`http://localhost:8080/api/users/${userId}`, {
-          managerId: 0,
+          setUsersInTeam((prevUsers) =>
+            prevUsers.filter((user) => user.userId !== userId)
+          );
+
+          return axios.patch(`http://localhost:8080/api/users/${userId}`, {
+            managerId: 0,
+          });
+        })
+        .then((response) => {
+          console.log("User manager_id updated successfully:", response.data);
+
+          // Clear local states
+          setTeamName("");
+          setUserId("");
+          setLoading(false);
+          setShowModal(false);
+        })
+        .catch((error) => {
+          console.error(
+            "Error removing team member or updating manager_id:",
+            error.response ? error.response.data : error.message
+          );
+          setLoading(false);
+          setShowModal(false);
         });
-      })
-      .then((response) => {
-        console.log("User manager_id updated successfully:", response.data);
-        setTeamId("");
-        setUserId("");
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error(
-          "Error removing team member or updating manager_id:",
-          error.response ? error.response.data : error.message
-        );
-        setLoading(false);
-      });
+    } else {
+      console.error("Team ID or User ID is missing.");
+      setLoading(false);
+      setShowModal(false);
+    }
+  };
+
+  const handleClose = () => {
+    setShowModal(false);
   };
 
   return (
     <div className="remove-team-member-container">
-      <form className="remove-team-member-panel" onSubmit={handleSubmit}>
+      <form
+        className="remove-team-member-panel"
+        onSubmit={(e) => e.preventDefault()}
+      >
         <div className="remove-team-member-header">Remove Team Member</div>
 
         <div className="remove-team-member-row">
           <div className="remove-team-member-section">
-            <label className="remove-team-member-title" htmlFor="teamId">
-              Team ID
+            <label className="remove-team-member-title" htmlFor="teamName">
+              Team Name
             </label>
-            <select
+            <input
               className="remove-team-member-content"
-              id="teamId"
-              value={teamId}
-              onChange={(e) => setTeamId(e.target.value)}
-            >
-              <option value="">Select a team</option>
-              {teamIds.map((id) => (
-                <option key={id} value={id}>
-                  {id}
-                </option>
-              ))}
-            </select>
+              id="teamName"
+              type="text"
+              value={teamName}
+              disabled
+            />
           </div>
 
           <div className="remove-team-member-section">
             <label className="remove-team-member-title" htmlFor="userId">
-              User ID
+              User Name
             </label>
             <select
               className="remove-team-member-content"
               id="userId"
               value={userId}
               onChange={(e) => setUserId(e.target.value)}
-              disabled={!teamId}
             >
               <option value="">Select a user</option>
               {usersInTeam.map((user) => (
@@ -120,12 +146,15 @@ const RemoveTeamMember = () => {
 
         <button
           className="remove-team-member-alert"
-          type="submit"
-          disabled={loading || !userId}
+          type="button"
+          onClick={handleRemove}
+          disabled={loading}
         >
           {loading ? "Removing..." : "Remove Team Member"}
         </button>
       </form>
+
+      <Modal show={showModal} onClose={handleClose} onConfirm={handleConfirm} />
     </div>
   );
 };

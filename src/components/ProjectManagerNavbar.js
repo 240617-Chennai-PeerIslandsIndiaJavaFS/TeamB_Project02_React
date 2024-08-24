@@ -10,25 +10,25 @@ const ProjectManagerNavbar = ({ setActiveSection }) => {
           className="project-manager-nav-item"
           onClick={() => setActiveSection("projects")}
         >
-          View Projects
+          Projects
         </button>
         <button
           className="project-manager-nav-item"
           onClick={() => setActiveSection("clients")}
         >
-          View Clients
+          Clients
         </button>
         <button
           className="project-manager-nav-item"
           onClick={() => setActiveSection("users")}
         >
-          View Users
+          TeamMemebers
         </button>
         <button
           className="project-manager-nav-item"
           onClick={() => setActiveSection("tasks")}
         >
-          View Tasks
+          Tasks
         </button>
         <Link className="project-manager-logout-button" to="/login">
           Logout
