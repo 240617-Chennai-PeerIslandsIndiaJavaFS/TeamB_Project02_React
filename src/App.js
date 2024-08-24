@@ -27,6 +27,7 @@ import UserDetails from "./components/UserDetails";
 import TaskMilestoneChart from "./components/TaskMilestoneChart";
 import CreateProject from "./components/CreateProject";
 import TaskDetails from "./components/TaskDetails";
+import ProjectManagerPage from "./components/ProjectManagerPage";
 
 function App() {
   return (
@@ -46,7 +47,10 @@ function App() {
           <Route path="create-project" element={<CreateProject />} />
           <Route path="monitor-task-details" element={<TaskDetails />} />
         </Route>
-        <Route path="/project-manager-projects" element={<ProjectPage />} />
+        <Route
+          path="/project-manager/projects"
+          element={<ProjectManagerPage />}
+        />
         <Route
           path="/project-details-menu/:projectId"
           element={<ProjectMenu />}
