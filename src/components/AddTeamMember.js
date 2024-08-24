@@ -1,24 +1,34 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import "../css/AddTeamMember.css";
 
 const AddTeamMember = () => {
+  const { projectId } = useParams();
+  const [teamName, setTeamName] = useState("");
   const [teamId, setTeamId] = useState("");
   const [userId, setUserId] = useState("");
-  const [teamIds, setTeamIds] = useState([]);
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/teams")
+      .get(`http://localhost:8080/api/teams/project/${projectId}`)
       .then((response) => {
-        const teamIds = response.data.map((team) => team.teamId);
-        setTeamIds(teamIds);
+        const team = response.data;
+        if (team) {
+          setTeamName(team.teamName);
+          setTeamId(team.teamId);
+        } else {
+          console.error("No team found for the provided project ID.");
+          setTeamName("");
+          setTeamId("");
+        }
       })
       .catch((error) => {
-        console.error("Error fetching team IDs:", error);
-        setTeamIds([]);
+        console.error("Error fetching team:", error);
+        setTeamName("");
+        setTeamId("");
       });
 
     axios
@@ -36,7 +46,7 @@ const AddTeamMember = () => {
         console.error("Error fetching users:", error);
         setUsers([]);
       });
-  }, []);
+  }, [projectId]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -51,7 +61,6 @@ const AddTeamMember = () => {
       .post(`http://localhost:8080/api/teamMember?${params.toString()}`)
       .then((response) => {
         console.log("Team member added successfully:", response.data);
-        setTeamId("");
         setUserId("");
         setLoading(false);
       })
@@ -71,27 +80,21 @@ const AddTeamMember = () => {
 
         <div className="add-team-member-row">
           <div className="add-team-member-section">
-            <label className="add-team-member-title" htmlFor="teamId">
-              Team ID
+            <label className="add-team-member-title" htmlFor="teamName">
+              Team Name
             </label>
-            <select
+            <input
               className="add-team-member-content"
-              id="teamId"
-              value={teamId}
-              onChange={(e) => setTeamId(e.target.value)}
-            >
-              <option value="">Select a team</option>
-              {teamIds.map((id) => (
-                <option key={id} value={id}>
-                  {id}
-                </option>
-              ))}
-            </select>
+              id="teamName"
+              type="text"
+              value={teamName}
+              disabled
+            />
           </div>
 
           <div className="add-team-member-section">
             <label className="add-team-member-title" htmlFor="userId">
-              User ID
+              User Name
             </label>
             <select
               className="add-team-member-content"
