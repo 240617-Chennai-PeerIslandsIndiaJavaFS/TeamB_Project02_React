@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../css/Dashboard.css";
+import { Pagination, Form, InputGroup } from "react-bootstrap";
 
 const Dashboard = () => {
   const [data, setData] = useState({
@@ -10,7 +11,11 @@ const Dashboard = () => {
     totalClients: 0,
   });
   const [detailedData, setDetailedData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
   const [activeCard, setActiveCard] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(5);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     const fetchCounts = async () => {
@@ -46,8 +51,33 @@ const Dashboard = () => {
     fetchCounts();
   }, []);
 
+  useEffect(() => {
+    if (searchTerm === "") {
+      setFilteredData(detailedData);
+    } else {
+      setFilteredData(
+        detailedData.filter((item) => {
+          switch (activeCard) {
+            case "projects":
+              return item.projectName.toLowerCase().includes(searchTerm.toLowerCase());
+            case "team":
+              return item.teamName.toLowerCase().includes(searchTerm.toLowerCase());
+            case "users":
+              return item.userName.toLowerCase().includes(searchTerm.toLowerCase());
+            case "clients":
+              return item.clientName.toLowerCase().includes(searchTerm.toLowerCase());
+            default:
+              return false;
+          }
+        })
+      );
+    }
+  }, [searchTerm, detailedData, activeCard]);
+
   const handleCardClick = async (type) => {
     setActiveCard(type);
+    setCurrentPage(1); // Reset to first page on card click
+    setSearchTerm(""); // Reset search term on card click
     try {
       let res;
       switch (type) {
@@ -68,6 +98,7 @@ const Dashboard = () => {
       }
       const details = await res.json();
       setDetailedData(details);
+      setFilteredData(details); // Initialize filtered data with the full dataset
     } catch (error) {
       console.error("Error fetching detailed data:", error);
     }
@@ -120,9 +151,13 @@ const Dashboard = () => {
   };
 
   const renderTableRows = () => {
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
+
     switch (activeCard) {
       case "projects":
-        return detailedData.map((project) => (
+        return currentItems.map((project) => (
           <tr key={project.projectId}>
             <td>{project.projectName || "N/A"}</td>
             <td>{project.description || "N/A"}</td>
@@ -133,7 +168,7 @@ const Dashboard = () => {
           </tr>
         ));
       case "team":
-        return detailedData.map((team) => (
+        return currentItems.map((team) => (
           <tr key={team.teamId}>
             <td>{team.teamName || "N/A"}</td>
             <td>{team.manager?.userName || "N/A"}</td>
@@ -141,7 +176,7 @@ const Dashboard = () => {
           </tr>
         ));
       case "users":
-        return detailedData.map((user) => (
+        return currentItems.map((user) => (
           <tr key={user.userId}>
             <td>{user.userName || "N/A"}</td>
             <td>{user.userRole || "N/A"}</td>
@@ -152,7 +187,7 @@ const Dashboard = () => {
           </tr>
         ));
       case "clients":
-        return detailedData.map((client) => (
+        return currentItems.map((client) => (
           <tr key={client.clientId}>
             <td>{client.clientName || "N/A"}</td>
             <td>{client.clientCompanyName || "N/A"}</td>
@@ -165,6 +200,8 @@ const Dashboard = () => {
     }
   };
 
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
     <div className="dashboard">
       {activeCard ? (
@@ -172,12 +209,36 @@ const Dashboard = () => {
           <h3>
             Details for {activeCard.charAt(0).toUpperCase() + activeCard.slice(1)}
           </h3>
+          <InputGroup className="mb-3">
+            <Form.Control
+              placeholder={`Search ${activeCard}`}
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <InputGroup.Text>
+              <i className="bi bi-search"></i>
+            </InputGroup.Text>
+          </InputGroup>
           <table className="table table-striped">
             <thead>
               <tr>{renderTableHeaders()}</tr>
             </thead>
             <tbody>{renderTableRows()}</tbody>
           </table>
+          <Pagination>
+            {Array.from(
+              { length: Math.ceil(filteredData.length / itemsPerPage) },
+              (_, i) => (
+                <Pagination.Item
+                  key={i + 1}
+                  active={i + 1 === currentPage}
+                  onClick={() => paginate(i + 1)}
+                >
+                  {i + 1}
+                </Pagination.Item>
+              )
+            )}
+          </Pagination>
           <button onClick={() => setActiveCard(null)}>Go Back</button>
         </div>
       ) : (
@@ -201,13 +262,6 @@ const Dashboard = () => {
           <div
             className="dashboardcard"
             style={{ backgroundColor: "#6699cc" }}
-          >
-            <h3>Total Tasks</h3>
-            <p>{data.totalTasks}</p>
-          </div>
-          <div
-            className="dashboardcard"
-            style={{ backgroundColor: "#6699cc" }}
             onClick={() => handleCardClick("users")}
           >
             <h3>Total Users</h3>
@@ -220,6 +274,14 @@ const Dashboard = () => {
           >
             <h3>Total Clients</h3>
             <p>{data.totalClients}</p>
+          </div>
+          <div
+            className="dashboardcard"
+            style={{ backgroundColor: "#6699cc" }}
+            onClick={() => handleCardClick("tasks")}
+          >
+            <h3>Total Tasks</h3>
+            <p>{data.totalTasks}</p>
           </div>
         </>
       )}

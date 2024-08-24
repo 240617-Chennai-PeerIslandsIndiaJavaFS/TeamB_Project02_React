@@ -20,6 +20,7 @@ const CreateProject = () => {
   const [managers, setManagers] = useState([]);
 
   useEffect(() => {
+    // Fetch projects to determine the next project ID
     axios
       .get("http://localhost:8080/api/projects")
       .then((response) => {
@@ -37,9 +38,11 @@ const CreateProject = () => {
         );
       });
 
+    // Fetch clients
     axios
       .get("http://localhost:8080/api/clients")
       .then((response) => {
+        console.log("Clients data:", response.data);
         setClients(response.data);
       })
       .catch((error) => {
@@ -49,6 +52,7 @@ const CreateProject = () => {
         );
       });
 
+    // Fetch managers
     axios
       .get("http://localhost:8080/api/admin/users")
       .then((response) => {
@@ -65,12 +69,14 @@ const CreateProject = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
+    // Determine if the value should be treated as a number or string
+    const updatedValue =
+      name === "clientId" || name === "managerId" ? (value === "" ? "" : Number(value)) : value;
+
     setFormData({
       ...formData,
-      [name]:
-        name === "projectId" || name === "clientId" || name === "managerId"
-          ? Number(value)
-          : value,
+      [name]: updatedValue,
     });
   };
 
@@ -88,14 +94,15 @@ const CreateProject = () => {
       teamName,
     } = formData;
 
+    console.log("Form data before validation:", formData);
     if (
       projectId === null ||
       !projectName ||
       !projectDescription ||
       !startDate ||
       !endDate ||
-      clientId === null ||
-      managerId === null ||
+      clientId === "" ||
+      managerId === "" ||
       !teamName
     ) {
       alert("Please fill in all the required fields.");
@@ -108,8 +115,8 @@ const CreateProject = () => {
       description: projectDescription,
       startDate,
       endDate,
-      client: { clientId },
-      manager: { userId: managerId },
+      client: { clientId: Number(clientId) },
+      manager: { userId: Number(managerId) },
       percentageLeft: 0.0,
     };
 
@@ -177,7 +184,7 @@ const CreateProject = () => {
           id="managerId"
           name="managerId"
           className="create-project-input"
-          value={formData.managerId || ""}
+          value={formData.managerId}
           onChange={handleChange}
           required
         >
