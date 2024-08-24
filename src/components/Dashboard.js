@@ -124,40 +124,40 @@ const Dashboard = () => {
       case "projects":
         return detailedData.map((project) => (
           <tr key={project.projectId}>
-            <td>{project.projectName}</td>
-            <td>{project.description}</td>
-            <td>{project.startDate}</td>
-            <td>{project.endDate}</td>
-            <td>{project.client.clientName}</td>
-            <td>{project.manager.userName}</td>
+            <td>{project.projectName || "N/A"}</td>
+            <td>{project.description || "N/A"}</td>
+            <td>{project.startDate || "N/A"}</td>
+            <td>{project.endDate || "N/A"}</td>
+            <td>{project.client?.clientName || "N/A"}</td>
+            <td>{project.manager?.userName || "N/A"}</td>
           </tr>
         ));
       case "team":
         return detailedData.map((team) => (
           <tr key={team.teamId}>
-            <td>{team.teamName}</td>
-            <td>{team.manager.userName}</td>
-            <td>{team.project.projectName}</td>
+            <td>{team.teamName || "N/A"}</td>
+            <td>{team.manager?.userName || "N/A"}</td>
+            <td>{team.project?.projectName || "N/A"}</td>
           </tr>
         ));
       case "users":
         return detailedData.map((user) => (
           <tr key={user.userId}>
-            <td>{user.userName}</td>
-            <td>{user.userRole}</td>
-            <td>{user.email}</td>
-            <td>{user.phone}</td>
-            <td>{user.status}</td>
-            <td>{user.specialization}</td>
+            <td>{user.userName || "N/A"}</td>
+            <td>{user.userRole || "N/A"}</td>
+            <td>{user.email || "N/A"}</td>
+            <td>{user.phone || "N/A"}</td>
+            <td>{user.status || "N/A"}</td>
+            <td>{user.specialization || "N/A"}</td>
           </tr>
         ));
       case "clients":
         return detailedData.map((client) => (
           <tr key={client.clientId}>
-            <td>{client.clientName}</td>
-            <td>{client.clientCompanyName}</td>
-            <td>{client.clientEmail}</td>
-            <td>{client.clientPhone}</td>
+            <td>{client.clientName || "N/A"}</td>
+            <td>{client.clientCompanyName || "N/A"}</td>
+            <td>{client.clientEmail || "N/A"}</td>
+            <td>{client.clientPhone || "N/A"}</td>
           </tr>
         ));
       default:

@@ -90,7 +90,7 @@ const UpdateUser = () => {
         <br />
 
         <label htmlFor="role" className="update-form-label">
-          Role:
+          Current Role:
         </label>
         <select
           id="role"
