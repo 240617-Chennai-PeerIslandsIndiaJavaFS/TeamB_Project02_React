@@ -9,8 +9,8 @@ const CreateProject = () => {
     projectDescription: "",
     startDate: "",
     endDate: "",
-    client: {},
-    managerId: {},
+    clientId: null,
+    managerId: null,
     teamName: "",
   };
 
@@ -24,7 +24,6 @@ const CreateProject = () => {
       .get("http://localhost:8080/api/projects")
       .then((response) => {
         const nextProjectId = response.data.length + 1;
-        console.log("Next Project ID:", nextProjectId);
         setFormData((prevData) => ({
           ...prevData,
           projectId: nextProjectId,
@@ -89,8 +88,6 @@ const CreateProject = () => {
       teamName,
     } = formData;
 
-    console.log("Form data before validation:", formData);
-    console.log("Manager ID in formData:", managerId);
     if (
       projectId === null ||
       !projectName ||
@@ -124,14 +121,12 @@ const CreateProject = () => {
         projectData
       )
       .then((response) => {
-        console.log(projectData);
         console.log("Form data submitted:", response.data);
         alert("Project created successfully!");
         setProjectCount(projectCount + 1);
         setFormData(initialFormData);
       })
       .catch((error) => {
-        console.log(projectData);
         console.error("Error details:", error.response.data);
         alert("There was an error creating the project!");
       });
@@ -162,7 +157,7 @@ const CreateProject = () => {
           id="clientId"
           name="clientId"
           className="create-project-input"
-          value={formData.client || ""}
+          value={formData.clientId || ""}
           onChange={handleChange}
           required
         >
