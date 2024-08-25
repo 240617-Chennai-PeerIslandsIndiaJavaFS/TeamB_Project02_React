@@ -49,6 +49,30 @@
   font-style: italic;
 }
 
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  margin: 0 5px;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  background-color: #f1f1f1;
+  cursor: pointer;
+}
+
+.pagination button.active {
+  background-color: #333;
+  color: white;
+}
+
+.pagination button:hover {
+  background-color: #1b1b1b;
+  color: white;
+}
+
 @media (max-width: 768px) {
   .tasks-page-table {
     display: block;
