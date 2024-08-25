@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import logopassword from "../media/passwordreset.png";
 import "../css/PasswordReset.css";
@@ -10,6 +10,8 @@ const PasswordResetPage = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [step, setStep] = useState(1);
+  const [timer, setTimer] = useState(120);
+  const [otpExpired, setOtpExpired] = useState(false);
 
   const handleEmailChange = (e) => setEmail(e.target.value);
   const handleTokenChange = (e) => setToken(e.target.value);
@@ -26,11 +28,15 @@ const PasswordResetPage = () => {
     axios
       .post("http://localhost:8080/api/requestPasswordReset", { email })
       .then((response) => {
-        alert("A token has been sent to your email.");
+        alert("A OTP has been sent to your email.");
         setStep(2);
+        setTimer(120);
+        setOtpExpired(false);
       })
       .catch((error) => {
-        setErrorMessage("There was an error requesting the password reset!");
+        setErrorMessage(
+          "Error requesting password reset—this email may not be registered yet."
+        );
       });
   };
 
@@ -59,6 +65,24 @@ const PasswordResetPage = () => {
       .catch((error) => {
         setErrorMessage("There was an error resetting the password!");
       });
+  };
+
+  useEffect(() => {
+    if (step === 2 && timer > 0) {
+      const intervalId = setInterval(() => {
+        setTimer((prevTimer) => prevTimer - 1);
+      }, 1000);
+
+      return () => clearInterval(intervalId);
+    } else if (timer === 0) {
+      setOtpExpired(true);
+    }
+  }, [step, timer]);
+
+  const formatTime = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
   };
 
   return (
@@ -90,7 +114,7 @@ const PasswordResetPage = () => {
               )}
               <div className="button-container-pw">
                 <button type="submit" className="btn reset-button">
-                  Get Token
+                  Get OTP
                 </button>
               </div>
             </form>
@@ -98,7 +122,7 @@ const PasswordResetPage = () => {
             <form id="reset-password-form" onSubmit={handleResetPassword}>
               <div className="mb-3">
                 <label htmlFor="exampleInputToken1" className="form-label-pw">
-                  Token
+                  OTP
                 </label>
                 <input
                   type="text"
@@ -107,7 +131,17 @@ const PasswordResetPage = () => {
                   value={token}
                   onChange={handleTokenChange}
                   required
+                  disabled={otpExpired}
                 />
+              </div>
+              <div className="otp-timer">
+                {otpExpired ? (
+                  <div className="error-message">Your OTP has expired.</div>
+                ) : (
+                  <div className="timer">
+                    Your OTP expires in {formatTime(timer)}
+                  </div>
+                )}
               </div>
               <div className="mb-3">
                 <label
@@ -123,6 +157,7 @@ const PasswordResetPage = () => {
                   value={newPassword}
                   onChange={handleNewPasswordChange}
                   required
+                  disabled={otpExpired}
                 />
               </div>
               <div className="mb-3">
@@ -139,13 +174,18 @@ const PasswordResetPage = () => {
                   value={confirmPassword}
                   onChange={handleConfirmPasswordChange}
                   required
+                  disabled={otpExpired}
                 />
               </div>
               {errorMessage && (
                 <div className="error-message">{errorMessage}</div>
               )}
               <div className="button-container-pw">
-                <button type="submit" className="btn reset-button">
+                <button
+                  type="submit"
+                  className="btn reset-button"
+                  disabled={otpExpired}
+                >
                   Reset Password
                 </button>
               </div>
