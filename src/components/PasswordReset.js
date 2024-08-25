@@ -12,11 +12,39 @@ const PasswordResetPage = () => {
   const [step, setStep] = useState(1);
   const [timer, setTimer] = useState(120);
   const [otpExpired, setOtpExpired] = useState(false);
+  const [passwordConstraints, setPasswordConstraints] = useState({
+    length: false,
+    letter: false,
+    digit: false,
+    specialChar: false,
+  });
 
   const handleEmailChange = (e) => setEmail(e.target.value);
   const handleTokenChange = (e) => setToken(e.target.value);
-  const handleNewPasswordChange = (e) => setNewPassword(e.target.value);
-  const handleConfirmPasswordChange = (e) => setConfirmPassword(e.target.value);
+  const handleNewPasswordChange = (e) => {
+    const value = e.target.value;
+    setNewPassword(value);
+
+    // Update password constraints
+    setPasswordConstraints({
+      length: value.length >= 7,
+      letter: /[a-zA-Z]/.test(value),
+      digit: /\d/.test(value),
+      specialChar: /[@_]/.test(value),
+    });
+  };
+  const handleConfirmPasswordChange = (e) =>
+    setConfirmPassword(e.target.value);
+
+  const validatePassword = (password) => {
+    // Password must be at least 7 characters long, alphanumeric, and contain at least one special character (@ or _)
+    return (
+      password.length >= 7 &&
+      /[a-zA-Z]/.test(password) &&
+      /\d/.test(password) &&
+      /[@_]/.test(password)
+    );
+  };
 
   const handleRequestReset = (e) => {
     e.preventDefault();
@@ -28,7 +56,7 @@ const PasswordResetPage = () => {
     axios
       .post("http://localhost:8080/api/requestPasswordReset", { email })
       .then((response) => {
-        alert("A OTP has been sent to your email.");
+        alert("An OTP has been sent to your email.");
         setStep(2);
         setTimer(120);
         setOtpExpired(false);
@@ -49,6 +77,13 @@ const PasswordResetPage = () => {
 
     if (newPassword !== confirmPassword) {
       setErrorMessage("New passwords do not match.");
+      return;
+    }
+
+    if (!validatePassword(newPassword)) {
+      setErrorMessage(
+        "Password must be at least 7 characters long, alphanumeric, and contain at least one special character (@ or _)."
+      );
       return;
     }
 
@@ -157,15 +192,33 @@ const PasswordResetPage = () => {
                   value={newPassword}
                   onChange={handleNewPasswordChange}
                   required
-                  disabled={otpExpired}
                 />
               </div>
+
+              <div className="password-requirements">
+                <p><strong>Password Requirements:</strong></p>
+                <ul>
+                  <li className={passwordConstraints.length ? "fulfilled" : ""}>
+                    At least 7 characters long
+                  </li>
+                  <li className={passwordConstraints.letter ? "fulfilled" : ""}>
+                    Includes at least one letter
+                  </li>
+                  <li className={passwordConstraints.digit ? "fulfilled" : ""}>
+                    Includes at least one digit
+                  </li>
+                  <li className={passwordConstraints.specialChar ? "fulfilled" : ""}>
+                    Contains at least one special character: <strong>@</strong> or <strong>_</strong>
+                  </li>
+                </ul>
+              </div>
+
               <div className="mb-3">
                 <label
                   htmlFor="exampleInputConfirmPassword1"
                   className="form-label-pw"
                 >
-                  Confirm New Password
+                  Confirm Password
                 </label>
                 <input
                   type="password"
@@ -174,18 +227,13 @@ const PasswordResetPage = () => {
                   value={confirmPassword}
                   onChange={handleConfirmPasswordChange}
                   required
-                  disabled={otpExpired}
                 />
               </div>
               {errorMessage && (
                 <div className="error-message">{errorMessage}</div>
               )}
               <div className="button-container-pw">
-                <button
-                  type="submit"
-                  className="btn reset-button"
-                  disabled={otpExpired}
-                >
+                <button type="submit" className="btn reset-button">
                   Reset Password
                 </button>
               </div>
