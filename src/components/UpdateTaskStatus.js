@@ -231,9 +231,12 @@ const UpdateTaskStatus = () => {
 
   return (
     <Container className="update-task-status all-status">
+      <Button id="gobackteam" variant="secondary" onClick={() => navigate(-1)}>
+        Go Back
+      </Button>
       <Row className="top-row-status">
         <Col>
-          <h1>Update Task Milestone</h1>
+          <h1 id="updatetaskhead">Update Task Milestone</h1>
           <p>Drag and drop tasks to update their milestone.</p>
         </Col>
       </Row>

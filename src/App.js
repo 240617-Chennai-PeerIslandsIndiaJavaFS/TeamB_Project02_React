@@ -15,7 +15,6 @@ import CreateTask from "./components/CreateTask";
 import UpdateTask from "./components/UpdateTask";
 import ViewTaskDetails from "./components/ViewTaskDetails";
 import TeamMemberPage from "./components/TeamMemberPage";
-import TaskPage from "./components/TaskPage";
 import CreateUser from "./components/CreateUser";
 import RemoveTask from "./components/RemoveTask";
 import UpdateTaskStatus from "./components/UpdateTaskStatus";
@@ -83,7 +82,6 @@ function App() {
           />
         </Route>
         <Route path="/team-member" element={<TeamMemberPage />} />
-        <Route path="/team-member/task/:taskId" element={<TaskPage />} />
         <Route
           path="/team-member/update-task-status"
           element={<UpdateTaskStatus />}

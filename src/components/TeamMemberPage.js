@@ -4,18 +4,20 @@ import {
   Container,
   Row,
   Col,
-  ListGroup,
+  Accordion,
   Button,
   Spinner,
   Alert,
+  Card,
 } from "react-bootstrap";
 import "../css/TeamMemberPage.css";
-import logo from "../media/teammemberpage.png";
 
 const TeamMemberPage = () => {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [project, setProject] = useState({});
+  const [client, setClient] = useState({});
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -27,49 +29,76 @@ const TeamMemberPage = () => {
       return;
     }
 
-    const fetchTasks = async () => {
+    const fetchDetails = async () => {
       try {
-        const response = await fetch(
+        const tasksResponse = await fetch(
           `http://localhost:8080/api/tasks/user/${user.userId}`
         );
-        if (response.ok) {
-          const data = await response.json();
-          setTasks(data);
+        if (tasksResponse.ok) {
+          const tasksData = await tasksResponse.json();
+          setTasks(tasksData);
+
+          if (tasksData.length > 0) {
+            const projectResponse = await fetch(
+              `http://localhost:8080/api/projects/${tasksData[0].project.projectId}`
+            );
+            if (projectResponse.ok) {
+              const projectData = await projectResponse.json();
+              setProject(projectData);
+
+              const clientResponse = await fetch(
+                `http://localhost:8080/api/clients/${projectData.client.clientId}`
+              );
+              if (clientResponse.ok) {
+                const clientData = await clientResponse.json();
+                setClient(clientData);
+              } else {
+                setError("Failed to fetch client data");
+              }
+            } else {
+              setError("Failed to fetch project data");
+            }
+          }
         } else {
           setError("Failed to fetch tasks");
         }
       } catch (error) {
-        setError("An error occurred while fetching tasks: " + error.message);
+        setError("An error occurred while fetching details: " + error.message);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchTasks();
+    fetchDetails();
   }, [user, navigate]);
-
-  const handleTaskClick = (taskId) => {
-    navigate(`/team-member/task/${taskId}`, { state: { user } });
-  };
 
   const handleUpdateStatusClick = () => {
     navigate(`/team-member/update-task-status`, { state: { user } });
+  };
+
+  const handleLogoutClick = () => {
+    navigate("/login");
   };
 
   if (!user) return null;
 
   return (
     <Container className="tm-login">
-      <img src={logo} alt="Logo" className="top-right-logo" />
       <Row className="mb-5">
         <Col className="welcome">
           <h1>Welcome, {user.userName}!</h1>
-          <p>
-            Here are your tasks. Click on a task to view more details or use the
-            button below to update the task status.
-          </p>
+        </Col>
+        <Col className="text-end">
+          <Button
+            variant="danger"
+            onClick={handleLogoutClick}
+            id="logout-button-team"
+          >
+            Logout
+          </Button>
         </Col>
       </Row>
+
       <Row className="mb-4 tasks-detail">
         <Col id="your-tasks">
           <h2 id="head">Your Tasks:</h2>
@@ -80,27 +109,60 @@ const TeamMemberPage = () => {
           ) : error ? (
             <Alert variant="danger">{error}</Alert>
           ) : (
-            <ListGroup>
+            <Accordion>
               {tasks.map((task) => (
-                <ListGroup.Item
-                  key={task.taskId}
-                  action
-                  onClick={() => handleTaskClick(task.taskId)}
-                  className="task-item"
-                >
-                  {task.taskName}
-                </ListGroup.Item>
+                <Accordion.Item eventKey={task.taskId} key={task.taskId}>
+                  <Accordion.Header>{task.taskName}</Accordion.Header>
+                  <Accordion.Body>
+                    <p>Description: {task.description}</p>
+                    <p>Status: {task.milestone?.milestoneName || "N/A"}</p>
+                    <p>Start Date: {task.startDate}</p>
+                    <p>Due Date: {task.endDate}</p>
+                  </Accordion.Body>
+                </Accordion.Item>
               ))}
-            </ListGroup>
+            </Accordion>
           )}
         </Col>
       </Row>
-      <Row>
-        <Col>
+      <Row className="mt-4 d-flex justify-content-center">
+        <Col md={5} sm={12}>
+          <Card className="project-card">
+            <Card.Body>
+              <Card.Title>Project Details</Card.Title>
+              <Card.Text>
+                Project Name: {project.projectName || "N/A"}
+                <br />
+                Description: {project.description || "N/A"}
+                <br />
+                Start Date: {project.startDate || "N/A"}
+                <br />
+                Due Date: {project.endDate || "N/A"}
+              </Card.Text>
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col md={4} sm={12}>
+          <Card className="client-card">
+            <Card.Body>
+              <Card.Title>Client Details</Card.Title>
+              <Card.Text>
+                Client Name: {client.clientName || "N/A"}
+                <br />
+                Company Name: {client.clientCompanyName || "N/A"}
+                <br />
+                Contact: {client.clientEmail || "N/A"}
+                <br />
+                Phone: {client.clientPhone || "N/A"}
+              </Card.Text>
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col md={2} sm={12} className="update-button-col">
           <Button
             variant="primary"
             onClick={handleUpdateStatusClick}
-            className="full-width-button"
+            id="update-milestone-button"
           >
             Update Task Milestone
           </Button>

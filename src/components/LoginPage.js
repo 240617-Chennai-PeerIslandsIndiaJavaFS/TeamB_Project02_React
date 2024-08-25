@@ -33,13 +33,11 @@ const LoginPage = () => {
       if (response.ok) {
         const user = await response.json();
 
-        // Check if the user status is active
         if (user.status !== "ACTIVE") {
           setMessage("Your account is inactive. Please contact the admin.");
           return;
         }
 
-        // Proceed with role-based navigation
         if (user.userRole === "ADMIN") {
           navigate("/admin");
         } else if (user.userRole === "TEAM_MEMBER") {
