@@ -4,7 +4,6 @@ import "../css/CreateProject.css";
 
 const CreateProject = () => {
   const initialFormData = {
-    projectId: null,
     projectName: "",
     projectDescription: "",
     startDate: "",
@@ -21,22 +20,22 @@ const CreateProject = () => {
 
   useEffect(() => {
     // Fetch projects to determine the next project ID
-    axios
-      .get("http://localhost:8080/api/projects")
-      .then((response) => {
-        const nextProjectId = response.data.length + 1;
-        setFormData((prevData) => ({
-          ...prevData,
-          projectId: nextProjectId,
-        }));
-        setProjectCount(response.data.length);
-      })
-      .catch((error) => {
-        console.error(
-          "There was an error fetching the list of projects!",
-          error
-        );
-      });
+    // axios
+    //   .get("http://localhost:8080/api/projects")
+    //   .then((response) => {
+    //     // const nextProjectId = response.data.length + 1;
+    //     setFormData((prevData) => ({
+    //       ...prevData,
+    //       projectId: nextProjectId,
+    //     }));
+    //     setProjectCount(response.data.length);
+    //   })
+    //   .catch((error) => {
+    //     console.error(
+    //       "There was an error fetching the list of projects!",
+    //       error
+    //     );
+    //   });
 
     // Fetch clients
     axios
@@ -70,7 +69,7 @@ const CreateProject = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    // Determine if the value should be treated as a number or string
+    
     const updatedValue =
       name === "clientId" || name === "managerId" ? (value === "" ? "" : Number(value)) : value;
 
@@ -110,7 +109,6 @@ const CreateProject = () => {
     }
 
     const projectData = {
-      projectId,
       projectName,
       description: projectDescription,
       startDate,

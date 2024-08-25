@@ -12,7 +12,7 @@ const CreateUser = () => {
     phone: "",
     specialization: "",
     status: "ACTIVE", 
-    dateOfJoining: "", // Added dateOfJoining field
+    dateOfJoining: "", 
   };
 
   const [formData, setFormData] = useState(initialFormData);
@@ -42,12 +42,26 @@ const CreateUser = () => {
     });
   };
 
+  const validatePassword = (password) => {
+    // Password must be at least 7 characters long and alphanumeric
+    const isValid = password.length >= 7 && /[a-zA-Z]/.test(password) && /\d/.test(password);
+    return isValid;
+  };
+
   const validateAndSubmitForm = () => {
     const { userName, userRole, email, password, phone, specialization, dateOfJoining } =
       formData;
     console.log("Form data before validation:", formData);
+
+    // Check if any field is empty
     if (!userName || !userRole || !email || !password || !phone || !specialization || !dateOfJoining) {
       alert("Please fill in all the required fields.");
+      return;
+    }
+
+    // Validate password
+    if (!validatePassword(password)) {
+      alert("Password must be in the alphanumeric form and must be atleast 7 characters long.");
       return;
     }
 

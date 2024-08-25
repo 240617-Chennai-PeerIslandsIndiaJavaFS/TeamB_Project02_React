@@ -76,8 +76,8 @@ const Dashboard = () => {
 
   const handleCardClick = async (type) => {
     setActiveCard(type);
-    setCurrentPage(1); // Reset to first page on card click
-    setSearchTerm(""); // Reset search term on card click
+    setCurrentPage(1); 
+    setSearchTerm(""); 
     try {
       let res;
       switch (type) {
@@ -254,7 +254,6 @@ const Dashboard = () => {
           <div
             className="dashboardcard"
             style={{ backgroundColor: "#6699cc" }}
-            onClick={() => handleCardClick("team")}
           >
             <h3>Total Team</h3>
             <p>{data.totalTeam}</p>
@@ -278,7 +277,6 @@ const Dashboard = () => {
           <div
             className="dashboardcard"
             style={{ backgroundColor: "#6699cc" }}
-            onClick={() => handleCardClick("tasks")}
           >
             <h3>Total Tasks</h3>
             <p>{data.totalTasks}</p>
