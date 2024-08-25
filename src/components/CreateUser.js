@@ -11,12 +11,18 @@ const CreateUser = () => {
     password: "",
     phone: "",
     specialization: "",
-    status: "ACTIVE", 
-    dateOfJoining: "", 
+    status: "ACTIVE",
+    dateOfJoining: "",
   };
 
   const [formData, setFormData] = useState(initialFormData);
   const [userCount, setUserCount] = useState(0);
+  const [passwordConstraints, setPasswordConstraints] = useState({
+    length: false,
+    letter: false,
+    digit: false,
+    specialChar: false,
+  });
 
   useEffect(() => {
     axios
@@ -36,15 +42,30 @@ const CreateUser = () => {
   }, [userCount]);
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
+
+    if (name === "password") {
+      // Update password constraints
+      setPasswordConstraints({
+        length: value.length >= 7,
+        letter: /[a-zA-Z]/.test(value),
+        digit: /\d/.test(value),
+        specialChar: /[@_]/.test(value),
+      });
+    }
   };
 
   const validatePassword = (password) => {
-    // Password must be at least 7 characters long and alphanumeric
-    const isValid = password.length >= 7 && /[a-zA-Z]/.test(password) && /\d/.test(password);
+    // Password must be at least 7 characters long, alphanumeric, and contain at least one special character (@ or _)
+    const isValid =
+      password.length >= 7 &&
+      /[a-zA-Z]/.test(password) &&
+      /\d/.test(password) &&
+      /[@_]/.test(password);
     return isValid;
   };
 
@@ -61,7 +82,7 @@ const CreateUser = () => {
 
     // Validate password
     if (!validatePassword(password)) {
-      alert("Password must be in the alphanumeric form and must be atleast 7 characters long.");
+      alert("Password must be at least 7 characters long, alphanumeric, and contain at least one special character (@ or _).");
       return;
     }
 
@@ -72,6 +93,12 @@ const CreateUser = () => {
         alert("User created successfully!");
         setUserCount(userCount + 1);
         setFormData(initialFormData);
+        setPasswordConstraints({
+          length: false,
+          letter: false,
+          digit: false,
+          specialChar: false,
+        });
       })
       .catch((error) => {
         console.error("There was an error creating the user!", error);
@@ -109,7 +136,7 @@ const CreateUser = () => {
           <option value="PROJECT_MANAGER" className="registration-form-option">PROJECT_MANAGER</option>
           <option value="TEAM_MEMBER" className="registration-form-option">TEAM_MEMBER</option>
         </select>
-        <br className="form-break" />
+        <br className="registration-form-break" />
 
         <label htmlFor="email" className="registration-form-label">Email:</label>
         <input
@@ -121,7 +148,7 @@ const CreateUser = () => {
           onChange={handleChange}
           required
         />
-        <br className="form-break" />
+        <br className="registration-form-break" />
 
         <label htmlFor="password" className="registration-form-label">Password:</label>
         <input
@@ -134,6 +161,24 @@ const CreateUser = () => {
           required
         />
         <br className="registration-form-break" />
+
+        <div className="password-requirements">
+          <p><strong>Password Requirements:</strong></p>
+          <ul>
+            <li className={passwordConstraints.length ? "fulfilled" : ""}>
+              At least 7 characters long
+            </li>
+            <li className={passwordConstraints.letter ? "fulfilled" : ""}>
+              Includes at least one letter
+            </li>
+            <li className={passwordConstraints.digit ? "fulfilled" : ""}>
+              Includes at least one digit
+            </li>
+            <li className={passwordConstraints.specialChar ? "fulfilled" : ""}>
+              Contains at least one special character: <strong>@</strong> or <strong>_</strong>
+            </li>
+          </ul>
+        </div>
 
         <label htmlFor="phone" className="registration-form-label">Phone:</label>
         <input
